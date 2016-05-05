@@ -13,4 +13,4 @@ DirectTV IP bases set top boxes.
 
 > After all your stations have been added you will need to give access to the newly created buttons in the Alexa smart app and then issue a "Discover new devices" command to Alexa
 
-![directv-logo](https://raw.githubusercontent.com/macmedia/Directv-IP-Tuner/master/Icons/IMG_0141.PNG)
+![screen-shot](https://raw.githubusercontent.com/macmedia/Directv-IP-Tuner/master/Icons/IMG_0141.png =250x)
