@@ -57,13 +57,13 @@ mappings { path("/getInfoHtml") {action: [GET: "getInfoHtml"]} }
 
 
 def setVal(){
-	state.channelLabel = "3"
-	sendEvent(name: "channel", value: "3", isStateChange: true)
+    state.channelLabel = "3"
+    sendEvent(name: "channel", value: "3", isStateChange: true)
 }
 
 
 def initialize(){
-	log.debug("init")
+    log.debug("init")
 }
 
 def push() {
@@ -91,27 +91,27 @@ def off() {
 }
 
 def getInfoHtml(){
-	def channel = parent.channel
+    def channel = parent.channel
     renderHTML {
-    	head{"""
-        <style type="text/css">
-        .htmlTile{
-			font-size: 14px;
-        }
-        .number{}
-        </style>
-        """}
+        head{"""
+<style type="text/css">
+.htmlTile{
+font-size: 14px;
+}
+.number{}
+</style>
+"""}
 
         body{"""
 
-        <div class="htmlTile">Tune to Channel <span class="number">$channel</span></div>
-        """}
+<div class="htmlTile">Tune to Channel <span class="number">$channel</span></div>
+"""}
     }
 }
 
 private hubGet(){
 
-	def stbip = parent?.recip
+    def stbip = parent?.recip
     def stbhost = parent?.recport
     def channel = parent?.channel
 
