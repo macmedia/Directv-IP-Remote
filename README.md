@@ -24,5 +24,14 @@ After all your stations have been added you will need to give access to the newl
 Mapping and name "NBC" to a number 12. Then when you say, "Alexa, turn on TV NBC", it will send the command to the Directv ip/port to change the channel.
 
 
-<img src="https://raw.githubusercontent.com/macmedia/Directv-IP-Tuner/master/Icons/IMG_0141.png" width="300px">
-<img src="https://raw.githubusercontent.com/macmedia/Directv-IP-Tuner/master/Icons/IMG_0143.PNG" width="300px">
+<img src="https://raw.githubusercontent.com/macmedia/Directv-IP-Tuner/master/Icons/IMG_0141.png" width="50%">
+<img src="https://raw.githubusercontent.com/macmedia/Directv-IP-Tuner/master/Icons/IMG_0143.PNG" width="50%">
+
+----
+
+# TODO
+- [x] Create a working SSDP file that will find boxes on local network
+- [ ] Implement working file into Smartapp
+- [ ] Clean up code
+- [ ] Comment code
+- [ ] Test code with other users
