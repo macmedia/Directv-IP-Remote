@@ -1,4 +1,4 @@
-# ![directv-logo](https://raw.githubusercontent.com/macmedia/Directv-IP-Tuner/master/Icons/DIRECTV.png) Directv-IP-Tuner
+# ![directv-logo](https://raw.githubusercontent.com/macmedia/Directv-IP-Tuner/master/Icons/DIRECTV.png) Directv IP Remote
 Version 1.0.0 - 05/05/2016
 
 ---
