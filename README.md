@@ -26,8 +26,8 @@ Mapping and name "NBC" to a number 12. Then when you say, "Alexa, turn on TV NBC
 <br/>
 
 <img src="https://raw.githubusercontent.com/macmedia/Directv-IP-Remote/master/Icons/IMG_0147-1.jpg" width="30%">
-<img src="https://raw.githubusercontent.com/macmedia/Directv-IP-Remote/master/Icons/IMG_0146-2.jpg" width="30%">
-<img src="https://raw.githubusercontent.com/macmedia/Directv-IP-Remote/master/Icons/IMG_0145-3.jpg" width="30%">
+<img src="https://raw.githubusercontent.com/macmedia/Directv-IP-Remote/master/Icons/IMG_0145-2.jpg" width="30%">
+<img src="https://raw.githubusercontent.com/macmedia/Directv-IP-Remote/master/Icons/IMG_0146-3.jpg" width="30%">
 ----
 
 # TODO
