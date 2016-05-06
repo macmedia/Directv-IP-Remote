@@ -18,7 +18,7 @@
 *
 */
 metadata {
-    definition (name: "Directv IP Remote", namespace: "macmedia", author: "Mike Elser") {
+    definition (name: "Directv IP Remote Device", namespace: "macmedia", author: "Mike Elser") {
         capability "Switch"
         capability "Momentary"
         capability "Actuator"
