@@ -25,9 +25,9 @@ After all your stations have been added you will need to give access to the newl
 Mapping and name "NBC" to a number 12. Then when you say, "Alexa, turn on TV NBC", it will send the command to the Directv ip/port to change the channel.
 <br/>
 
-<img src="https://raw.githubusercontent.com/macmedia/Directv-IP-Tuner/master/Icons/IMG_0141.png" width="45%">
-<img src="https://raw.githubusercontent.com/macmedia/Directv-IP-Tuner/master/Icons/IMG_0143.PNG" width="45%">
-
+<img src="https://raw.githubusercontent.com/macmedia/Directv-IP-Remote/master/Icons/IMG_0147-1.jpg" width="30%">
+<img src="https://raw.githubusercontent.com/macmedia/Directv-IP-Remote/master/Icons/IMG_0146-2.jpg" width="30%">
+<img src="https://raw.githubusercontent.com/macmedia/Directv-IP-Remote/master/Icons/IMG_0145-3.jpg" width="30%">
 ----
 
 # TODO
