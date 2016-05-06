@@ -57,13 +57,13 @@ mappings { path("/getInfoHtml") {action: [GET: "getInfoHtml"]} }
 
 
 def setVal(){
-    state.channelLabel = "3"
-    sendEvent(name: "channel", value: "3", isStateChange: true)
+	state.channelLabel = "3"
+	sendEvent(name: "channel", value: "3", isStateChange: true)
 }
 
 
 def initialize(){
-    log.debug("init")
+	log.debug("init")
 }
 
 def push() {
@@ -91,31 +91,28 @@ def off() {
 }
 
 def getInfoHtml(){
-    def channel = parent.channel
+	def channel = parent.channel
     renderHTML {
-        head{"""
-<style type="text/css">
-.htmlTile{
-font-size: 14px;
-}
-.number{}
-</style>
-"""}
+    	head{"""
+        <style type="text/css">
+        .htmlTile{
+			font-size: 14px;
+        }
+        .number{}
+        </style>
+        """}
 
         body{"""
 
-<div class="htmlTile">Tune to Channel <span class="number">$channel</span></div>
-"""}
+        <div class="htmlTile">Tune to Channel <span class="number">$channel</span></div>
+        """}
     }
 }
 
 private hubGet(){
 
-    def stbip = parent?.recip
-    def stbhost = parent?.recport
+    def address = convertHexToIP(parent.state.dtvip)+":8080"
     def channel = parent?.channel
-
-    def address = "$stbip:$stbhost"
     def url = "/tv/tune?major=$channel"
     def hubAction = new physicalgraph.device.HubAction(
         method: "GET",
@@ -123,8 +120,13 @@ private hubGet(){
         headers: [HOST:address]
     )
 
-    log.debug("Change Channel on Directv Box [http://${address}${url}]")
-
     return hubAction
+}
 
+def String convertHexToIP(hex){
+	[convertHexToInt(hex[0..1]),convertHexToInt(hex[2..3]),convertHexToInt(hex[4..5]),convertHexToInt(hex[6..7])].join(".")
+}
+
+def Integer convertHexToInt(hex){
+	Integer.parseInt(hex,16)
 }

@@ -21,39 +21,26 @@ definition(
     author: "Mike Elser",
     description: "Using the Directv IP Tuner Smart App will create a new virtual switch that can be used\r\nby Amazon Echo to say voice commands to turn to the select channel.\r\n\r\n(Sample: Alexa, turn on TV NBC)\r\nChannel Name: NBC  // Is used as phrase for Alexa\r\nChannel Number: 12  // Is used as channel to tune to",
     category: "Convenience",
-    parent: "macmedia:Directv IP Tuner (Connect)",
+    //parent: "macmedia:Directv IP Remote",
     iconUrl: "https://raw.githubusercontent.com/macmedia/Directv-IP-Tuner/master/Icons/DIRECTV.png",
     iconX2Url: "https://raw.githubusercontent.com/macmedia/Directv-IP-Tuner/master/Icons/DIRECTV@2x.png",
     iconX3Url: "https://raw.githubusercontent.com/macmedia/Directv-IP-Tuner/master/Icons/DIRECTV@2x.png")
 
 
 preferences {
-    page(name:"mainPage", title:"Install Virtual Devices", nextPage: "channelPage", uninstall: true){
-        section("Receiver"){
-            input("recip", "text", title: "IP Address", description: "Please enter your Directv's IP address.", required:true, defaultValue:"192.168.1.100")
-            input("recport", "text", title: "Port", description: "Please enter your Directv's port number.", required:true, defaultValue:"8080")
-        }
-    }
 
-    page(name:"channelPage", title:"Install Virtual Devices", nextPage: "hubPage" ){
+    page(name:"channelPage", title:"Install Virtual Devices", install: true, uninstall: true){
         section("Channel Name"){
-            label(name:"label", title: "Name This channel", required: true, multiple: false, defaultValue:"NBC")
+            label(name:"label", title: "Name this channel", required: true, multiple: false, defaultValue:"NBC")
             input("channel", "text", title: "Channel Number", description: "Please enter channel number to tune to.", required:true, defaultValue:"12")
         }
     }
-
-    page(name:"hubPage", title:"Install Virtual Devices", install: true, uninstall: true){
-
-        section("on this hub...") {
-            input "theHub", "hub", multiple: false, required: true
-        }
-    }
-
+    
 }
 
 def installed() {
 	log.debug "Installed with settings: ${settings}"
-	state.dtvip = recip
+
 	initialize()
 }
 
@@ -68,20 +55,29 @@ def initialize() {
 
     def DNI = "DTV${convertToHex(channel)}"
 
-    //try{
+    //Get a current list of channels
+    def channelList = getChildDevices()
 
-        //Get a current list of cameras
-        def channelList = getChildDevices()
+    //Remove channel is we alread have it
+    if (channelList) {
+        removeChildDevices(channelList)
+    }
 
-        if (channelList) {
-            removeChildDevices(channelList)
-        }
+    def macNumber = parent.settings.selectedBox
+    def directvDevices = parent.getDirectvBoxes()
+    def boxes = directvDevices.findAll { it?.value?.mac == macNumber }
 
-        def childDevice = addChildDevice("macmedia", "Directv IP Tuner", DNI, theHub.id, [name: "TV "+ app.label, label: "TV "+app.label, devicechannel:channel, completedSetup: true])
+    def ip = boxes.collect{it?.value?.ip}[0]
+    def hub = boxes.collect{it?.value?.hub}[0]
 
-    //} catch (e) {
-    //    log.error("Child -> Error triggered in init: $e")
-    //}
+	//Save state variables
+	state.dtvip  = ip
+    state.dtmac  = macNumber
+    state.dtvhub = hub
+
+	//Add virtual switch to things
+    def childDevice = addChildDevice("macmedia", "Directv IP Tuner", DNI, hub, [name: "TV "+ app.label, label: "TV "+app.label, devicechannel:channel, completedSetup: true])
+
 }
 
 

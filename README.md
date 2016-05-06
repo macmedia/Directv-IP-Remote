@@ -1,10 +1,11 @@
 # ![directv-logo](https://raw.githubusercontent.com/macmedia/Directv-IP-Tuner/master/Icons/DIRECTV.png) Directv-IP-Tuner
 Version 1.0.0 - 05/05/2016
 
+---
 
-## This is not a _stable_ list of files. Im using this a staging area for files that Im working on.
+##### This is not a _stable_ list of files. Im using this a staging area for files that Im working on.
 
-
+<br/>
 
 Dir                | Description
 -------------------|-----------------------------------------
@@ -22,7 +23,7 @@ Im creating this app so I can automatically create virtual device buttons that c
 After all your stations have been added you will need to give access to the newly created buttons in the Alexa smart app and then issue a "Discover new devices" command to Alexa
 
 Mapping and name "NBC" to a number 12. Then when you say, "Alexa, turn on TV NBC", it will send the command to the Directv ip/port to change the channel.
-
+<br/>
 
 <img src="https://raw.githubusercontent.com/macmedia/Directv-IP-Tuner/master/Icons/IMG_0141.png" width="45%">
 <img src="https://raw.githubusercontent.com/macmedia/Directv-IP-Tuner/master/Icons/IMG_0143.PNG" width="45%">
