@@ -18,7 +18,7 @@ definition(
     name: "Directv IP Remote (Connect)",
     namespace: "macmedia",
     author: "Mike Elser",
-    description: "Directv Connect app to create virtual devices that can be contolled by Alexa.",
+    description: "Create virtual devices that can change channel's and can be contolled by Alexa.",
     category: "Convenience",
     iconUrl: "https://raw.githubusercontent.com/macmedia/Directv-IP-Remote/master/Icons/DIRECTV.png",
     iconX2Url: "https://raw.githubusercontent.com/macmedia/Directv-IP-Remote/master/Icons/DIRECTV%402x.png",
@@ -30,7 +30,7 @@ def appVerDate() { "5-6-2016" }
 
 preferences {
     page(name:"mainPage", title:"Directv Box Setup", content:"mainPage", refreshTimeout:5)
-    page(name:"discoveryBoxes", title:"Directv Discovery", content:"discoveryBoxes", refreshTimeout:5)
+    page(name:"discoveryBoxes", content:"discoveryBoxes", refreshTimeout:5)
     page(name:"channelSetupPage")
 }
 
@@ -40,7 +40,7 @@ def mainPage(){
 }
 
 def channelSetupPage(){
-    dynamicPage(name: "channelSetupPage", title: "Existing Channels") {
+    return dynamicPage(name: "channelSetupPage", title: "Existing Channels") {
         section("Add a New Channel") {
             app(name:"Directv IP Remote", appName:"Directv IP Remote Child", namespace:"macmedia", title: "New Channel", page: "channelPage", multiple: true)
         }
@@ -80,12 +80,14 @@ def discoveryBoxes(params=[:]) {
         verifyDevices()
     }
 
-    def boxesDiscovered = boxesDiscovered()
+def boxesDiscovered = boxesDiscovered()
 
-    return dynamicPage(name: "discoveryBoxes", title:"Discovery Started!", refreshInterval:refreshInterval, install:true, uninstall: true) {
+
+    return dynamicPage(name: "discoveryBoxes", title:"", refreshInterval:refreshInterval, install:true, uninstall: true) {
         section("") {
             paragraph "Version: ${appVersion()}\nDate: ${appVerDate()}", image: "https://raw.githubusercontent.com/macmedia/Directv-IP-Remote/master/Icons/DIRECTV.png"
         }
+
         section("Please wait while we discover your Directv Boxes.") {
             input "selectedBox",
                 "enum",
