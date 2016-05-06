@@ -80,14 +80,12 @@ def discoveryBoxes(params=[:]) {
         verifyDevices()
     }
 
-def boxesDiscovered = boxesDiscovered()
-
+    def boxesDiscovered = boxesDiscovered()
 
     return dynamicPage(name: "discoveryBoxes", title:"", refreshInterval:refreshInterval, install:true, uninstall: true) {
         section("") {
             paragraph "Version: ${appVersion()}\nDate: ${appVerDate()}", image: "https://raw.githubusercontent.com/macmedia/Directv-IP-Remote/master/Icons/DIRECTV.png"
         }
-
         section("Please wait while we discover your Directv Boxes.") {
             input "selectedBox",
                 "enum",
