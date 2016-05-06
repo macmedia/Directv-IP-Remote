@@ -21,9 +21,12 @@ definition(
     description: "Directv Connect app to create virtual devices that can be contolled by Alexa.",
     category: "Convenience",
     iconUrl: "https://raw.githubusercontent.com/macmedia/Directv-IP-Remote/master/Icons/DIRECTV.png",
-    iconX2Url: "https://raw.githubusercontent.com/macmedia/Directv-IP-Remote/master/Icons/DIRECTV@2x.png",
-    iconX3Url: "https://raw.githubusercontent.com/macmedia/Directv-IP-Remote/master/Icons/DIRECTV@2x.png",
+    iconX2Url: "https://raw.githubusercontent.com/macmedia/Directv-IP-Remote/master/Icons/DIRECTV%402x.png",
+    iconX3Url: "https://raw.githubusercontent.com/macmedia/Directv-IP-Remote/master/Icons/DIRECTV%402x.png",
     singleInstance: true)
+
+def appVersion() { "1.0.0" }
+def appVerDate() { "5-6-2016" }
 
 preferences {
     page(name:"mainPage", title:"Directv Box Setup", content:"mainPage", refreshTimeout:5)
@@ -37,11 +40,11 @@ def mainPage(){
 }
 
 def channelSetupPage(){
-  dynamicPage(name: "channelSetupPage", title: "Existing Channels") {
-    section("Add a New Channel") {
-        app(name:"Directv IP Remote", appName:"Directv IP Remote Child", namespace:"macmedia", title: "New Channel", page: "channelPage", multiple: true)
+    dynamicPage(name: "channelSetupPage", title: "Existing Channels") {
+        section("Add a New Channel") {
+            app(name:"Directv IP Remote", appName:"Directv IP Remote Child", namespace:"macmedia", title: "New Channel", page: "channelPage", multiple: true)
+        }
     }
-  }
 }
 
 def discoveryBoxes(params=[:]) {
@@ -53,7 +56,7 @@ def discoveryBoxes(params=[:]) {
 
     state.dtvBoxesRefreshCount = dtvBoxesRefreshCount + 1
 
-	 //Clean up
+    //Clean up
     if (numFound == 0 && state.dtvBoxesRefreshCount > 25) {
         log.trace "Cleaning old memory"
         state.dtvBoxes = [:]
@@ -61,7 +64,7 @@ def discoveryBoxes(params=[:]) {
         app.updateSetting("selectedBox", "")
     }
 
-	 //Subscribe to ssdp request
+    //Subscribe to ssdp request
     ssdpSubscribe()
 
     //Discovery request every 15 //25 seconds
@@ -80,6 +83,9 @@ def discoveryBoxes(params=[:]) {
     def boxesDiscovered = boxesDiscovered()
 
     return dynamicPage(name: "discoveryBoxes", title:"Discovery Started!", refreshInterval:refreshInterval, install:true, uninstall: true) {
+        section("") {
+            paragraph "Version: ${appVersion()}\nDate: ${appVerDate()}", image: "https://raw.githubusercontent.com/macmedia/Directv-IP-Remote/master/Icons/DIRECTV.png"
+        }  
         section("Please wait while we discover your Directv Boxes.") {
             input "selectedBox",
                 "enum",
