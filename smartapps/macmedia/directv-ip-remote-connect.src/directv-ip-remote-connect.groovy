@@ -33,21 +33,15 @@ preferences {
 
 def mainPage(){
     def dtvBoxes = boxesDiscovered()
-    discoveryBoxes()  
+    discoveryBoxes()
 }
 
 def channelSetupPage(){
-    dynamicPage(name: "channelSetupPage", title: "Existing Channels") {
-        if(state?.installed) {
-            section("Add a New Channel") {
-                app "Directv IP Tuner Child", "macmedia", "Directv IP Tuner Child", title: "New Channel", page: "channelPage", multiple: true
-            }
-        } else {
-            section("Initial Install") {
-                paragraph "This smartapp installs virtual devices that can be controlled by the Amazon Alexa voice commands. Example: Alexa, turn on TV NBC."
-            }
-        }
+  dynamicPage(name: "channelSetupPage", title: "Existing Channels") {
+    section("Add a New Channel") {
+        app "Directv IP Tuner Child", "macmedia", "Directv IP Tuner Child", title: "New Channel", page: "channelPage", multiple: true
     }
+  }
 }
 
 def discoveryBoxes(params=[:]) {
@@ -94,8 +88,8 @@ def discoveryBoxes(params=[:]) {
                 multiple:false,
                 options:options
         }
-        section("Channels"){
-            href(page: "channelSetupPage", title: "Channel Setup'")
+        section("Add Channels"){
+            href(page: "channelSetupPage", title: "Channel Setup")
         }
     }
 }
