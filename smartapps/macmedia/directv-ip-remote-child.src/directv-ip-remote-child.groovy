@@ -21,7 +21,7 @@ definition(
     author: "Mike Elser",
     description: "Direct IP Remote child app. This child app is called from Direct IP Remote (Connect) to add new channel virtual devices.",
     category: "Convenience",
-    parent: "macmedia:Directv IP Remote",
+    parent: "macmedia:Directv IP Remote (Connect)",
     iconUrl: "https://raw.githubusercontent.com/macmedia/Directv-IP-Tuner/master/Icons/DIRECTV.png",
     iconX2Url: "https://raw.githubusercontent.com/macmedia/Directv-IP-Tuner/master/Icons/DIRECTV@2x.png",
     iconX3Url: "https://raw.githubusercontent.com/macmedia/Directv-IP-Tuner/master/Icons/DIRECTV@2x.png")
