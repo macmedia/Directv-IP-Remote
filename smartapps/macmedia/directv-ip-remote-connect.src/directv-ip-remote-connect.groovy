@@ -39,7 +39,7 @@ def mainPage(){
 def channelSetupPage(){
   dynamicPage(name: "channelSetupPage", title: "Existing Channels") {
     section("Add a New Channel") {
-        app "Directv IP Tuner Child", "macmedia", "Directv IP Tuner Child", title: "New Channel", page: "channelPage", multiple: true
+        app "Directv IP Remote Child", "macmedia", "Directv IP Remote Child", title: "New Channel", page: "channelPage", multiple: true
     }
   }
 }

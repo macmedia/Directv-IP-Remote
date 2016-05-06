@@ -22,9 +22,9 @@ definition(
     description: "Direct IP Remote child app. This child app is called from Direct IP Remote (Connect) to add new channel virtual devices.",
     category: "Convenience",
     parent: "macmedia:Directv IP Remote (Connect)",
-    iconUrl: "https://raw.githubusercontent.com/macmedia/Directv-IP-Tuner/master/Icons/DIRECTV.png",
-    iconX2Url: "https://raw.githubusercontent.com/macmedia/Directv-IP-Tuner/master/Icons/DIRECTV@2x.png",
-    iconX3Url: "https://raw.githubusercontent.com/macmedia/Directv-IP-Tuner/master/Icons/DIRECTV@2x.png")
+    iconUrl: "https://raw.githubusercontent.com/macmedia/Directv-IP-Remote/master/Icons/DIRECTV.png",
+    iconX2Url: "https://raw.githubusercontent.com/macmedia/Directv-IP-Remote/master/Icons/DIRECTV@2x.png",
+    iconX3Url: "https://raw.githubusercontent.com/macmedia/Directv-IP-Remote/master/Icons/DIRECTV@2x.png")
 
 preferences {
     page(name:"channelPage", title:"Install Virtual Devices", install: true, uninstall: true){
@@ -73,7 +73,7 @@ def initialize() {
     state.dtvhub = hub
 
 	  //Add virtual switch to things
-    def childDevice = addChildDevice("macmedia", "Directv IP Tuner", DNI, hub, [name: "TV "+ app.label, label: "TV "+app.label, devicechannel:channel, completedSetup: true])
+    def childDevice = addChildDevice("macmedia", "Directv IP Remote", DNI, hub, [name: "TV "+ app.label, label: "TV "+app.label, devicechannel:channel, completedSetup: true])
 
 }
 
