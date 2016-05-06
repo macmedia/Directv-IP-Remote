@@ -18,7 +18,7 @@ definition(
     name: "Directv IP Remote (Connect)",
     namespace: "macmedia",
     author: "Mike Elser",
-    description: "look for boxes - test",
+    description: "Directv Connect app to create virtual devices that can be contolled by Alexa.",
     category: "Convenience",
     iconUrl: "https://raw.githubusercontent.com/macmedia/Directv-IP-Tuner/master/Icons/DIRECTV.png",
     iconX2Url: "https://raw.githubusercontent.com/macmedia/Directv-IP-Tuner/master/Icons/DIRECTV@2x.png",
@@ -28,7 +28,6 @@ preferences {
     page(name:"mainPage", title:"Directv Box Setup", content:"mainPage", refreshTimeout:5)
     page(name:"discoveryBoxes", title:"Directv Discovery", content:"discoveryBoxes", refreshTimeout:5)
     page(name:"channelSetupPage")
-
 }
 
 def mainPage(){
@@ -39,7 +38,7 @@ def mainPage(){
 def channelSetupPage(){
   dynamicPage(name: "channelSetupPage", title: "Existing Channels") {
     section("Add a New Channel") {
-        app "Directv IP Remote Child", "macmedia", "Directv IP Remote Child", title: "New Channel", page: "channelPage", multiple: true
+        app(name:"Directv IP Remote", appName:"Directv IP Remote Child",namespace:"macmedia", title: "New Channel", page: "channelPage", multiple: true)
     }
   }
 }

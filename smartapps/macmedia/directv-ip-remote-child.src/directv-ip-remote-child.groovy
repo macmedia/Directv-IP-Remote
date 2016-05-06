@@ -73,7 +73,7 @@ def initialize() {
     state.dtvhub = hub
 
 	  //Add virtual switch to things
-    def childDevice = addChildDevice("macmedia", "Directv IP Remote", DNI, hub, [name: "TV "+ app.label, label: "TV "+app.label, devicechannel:channel, completedSetup: true])
+    def childDevice = addChildDevice("macmedia", "Directv IP Remote Device", DNI, hub, [name: "TV "+ app.label, label: "TV "+app.label, devicechannel:channel, completedSetup: true])
 
 }
 
