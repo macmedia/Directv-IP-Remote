@@ -32,7 +32,7 @@ Mapping and name "NBC" to a number 12. Then when you say, "Alexa, turn on TV NBC
 
 # TODO
 - [x] Create a working SSDP file that will find boxes on local network
-- [ ] Implement working file into Smartapp
+- [x] Implement working file into Smartapp
 - [ ] Clean up code
 - [ ] Comment code
 - [ ] Test code with other users
