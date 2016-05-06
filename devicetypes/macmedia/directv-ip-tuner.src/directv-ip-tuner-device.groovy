@@ -1,5 +1,5 @@
 /**
-*  Directv IP Tuner Device Type
+*  Directv IP Remote - Device Type
 *  Version 1.0.0 - 05/04/2015
 *
 *  Using the Directv IP Tuner Smart App will create a new virtual switch that can be used
@@ -18,7 +18,7 @@
 *
 */
 metadata {
-    definition (name: "Directv IP Tuner", namespace: "macmedia", author: "Mike Elser") {
+    definition (name: "Directv IP Remote", namespace: "macmedia", author: "Mike Elser") {
         capability "Switch"
         capability "Momentary"
         capability "Actuator"
@@ -41,7 +41,7 @@ metadata {
         }
 
         valueTile("channel", "device.channel", decoration: "flat",width: 4, height: 2) {
-            state("channel", label:'Channel ${currentValue}')
+            state("default", label:'Channel ${currentValue}')
         }
 
 

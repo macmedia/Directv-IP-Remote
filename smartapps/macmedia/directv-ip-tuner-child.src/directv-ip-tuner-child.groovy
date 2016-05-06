@@ -1,5 +1,5 @@
 /**
- *  Directv IP Tuner Child
+ *  Directv IP Remote Child
  *  Version 1.0.0 - 05/04/2016
  *
  *  Copyright 2016 Mike Elser
@@ -16,26 +16,23 @@
  */
 
 definition(
-    name: "Directv IP Tuner Child",
+    name: "Directv IP Remote Child",
     namespace: "macmedia",
     author: "Mike Elser",
-    description: "Using the Directv IP Tuner Smart App will create a new virtual switch that can be used\r\nby Amazon Echo to say voice commands to turn to the select channel.\r\n\r\n(Sample: Alexa, turn on TV NBC)\r\nChannel Name: NBC  // Is used as phrase for Alexa\r\nChannel Number: 12  // Is used as channel to tune to",
+    description: "Direct IP Remote child app. This child app is called from Direct IP Remote (Connect) to add new channel virtual devices.",
     category: "Convenience",
-    //parent: "macmedia:Directv IP Remote",
+    parent: "macmedia:Directv IP Remote",
     iconUrl: "https://raw.githubusercontent.com/macmedia/Directv-IP-Tuner/master/Icons/DIRECTV.png",
     iconX2Url: "https://raw.githubusercontent.com/macmedia/Directv-IP-Tuner/master/Icons/DIRECTV@2x.png",
     iconX3Url: "https://raw.githubusercontent.com/macmedia/Directv-IP-Tuner/master/Icons/DIRECTV@2x.png")
 
-
 preferences {
-
     page(name:"channelPage", title:"Install Virtual Devices", install: true, uninstall: true){
         section("Channel Name"){
             label(name:"label", title: "Name this channel", required: true, multiple: false, defaultValue:"NBC")
             input("channel", "text", title: "Channel Number", description: "Please enter channel number to tune to.", required:true, defaultValue:"12")
         }
     }
-    
 }
 
 def installed() {
@@ -52,7 +49,7 @@ def updated() {
 }
 
 def initialize() {
-
+    //Set a unique device network id
     def DNI = "DTV${convertToHex(channel)}"
 
     //Get a current list of channels
@@ -70,17 +67,15 @@ def initialize() {
     def ip = boxes.collect{it?.value?.ip}[0]
     def hub = boxes.collect{it?.value?.hub}[0]
 
-	//Save state variables
-	state.dtvip  = ip
+	  //Save state variables
+ 	  state.dtvip  = ip
     state.dtmac  = macNumber
     state.dtvhub = hub
 
-	//Add virtual switch to things
+	  //Add virtual switch to things
     def childDevice = addChildDevice("macmedia", "Directv IP Tuner", DNI, hub, [name: "TV "+ app.label, label: "TV "+app.label, devicechannel:channel, completedSetup: true])
 
 }
-
-
 
 private String convertIPtoHex(ipAddress) {
     String hex = ipAddress.tokenize( '.' ).collect {  String.format( '%02x', it.toInteger() ) }.join()

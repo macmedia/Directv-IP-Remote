@@ -1,5 +1,5 @@
 /**
-*  Directv IP Remote
+*  Directv IP Remote (Connect)
 *  Version 1.0.0 - 05/05/2016
 *
 *  Copyright 2016 Mike Elser
@@ -15,15 +15,14 @@
 *
 */
 definition(
-    name: "Directv IP Remote",
+    name: "Directv IP Remote (Connect)",
     namespace: "macmedia",
     author: "Mike Elser",
-    description: "Creates virtual divice to connect to Alexa. After discovery you cal say 'Alexa, turn on TV NBC' and it will change the station.",
+    description: "look for boxes - test",
     category: "Convenience",
     iconUrl: "https://raw.githubusercontent.com/macmedia/Directv-IP-Tuner/master/Icons/DIRECTV.png",
     iconX2Url: "https://raw.githubusercontent.com/macmedia/Directv-IP-Tuner/master/Icons/DIRECTV@2x.png",
     iconX3Url: "https://raw.githubusercontent.com/macmedia/Directv-IP-Tuner/master/Icons/DIRECTV@2x.png")
-
 
 preferences {
     page(name:"mainPage", title:"Directv Box Setup", content:"mainPage", refreshTimeout:5)
@@ -33,17 +32,15 @@ preferences {
 }
 
 def mainPage(){
-    log.debug "mainPage"
     def dtvBoxes = boxesDiscovered()
-
     discoveryBoxes()
 }
 
 def channelSetupPage(){
-    dynamicPage(name: "channelSetupPage", title: "Existing Channels", install: false, uninstall: false) {
+    dynamicPage(name: "channelSetupPage", title: "Existing Channels") {
         if(state?.installed) {
             section("Add a New Channel") {
-                app "Directv IP Tuner Child", "macmedia", "Directv IP Tuner Child", title: "New Channel", page: "channelPage", multiple: true, install: true
+                app "Directv IP Tuner Child", "macmedia", "Directv IP Tuner Child", title: "New Channel", page: "channelPage", multiple: true
             }
         } else {
             section("Initial Install") {
@@ -54,27 +51,35 @@ def channelSetupPage(){
 }
 
 def discoveryBoxes(params=[:]) {
-
     def dtvBoxes = boxesDiscovered()
-    int bridgeRefreshCount = !state.bridgeRefreshCount ? 0 : state.bridgeRefreshCount as int
-        state.bridgeRefreshCount = bridgeRefreshCount + 1
+    int dtvBoxesRefreshCount = !state.dtvBoxesRefreshCount ? 0 : state.dtvBoxesRefreshCount as int
     def options = dtvBoxes ?: []
     def numFound = options.size() ?: 0
     def refreshInterval = 3
 
+    state.dtvBoxesRefreshCount = dtvBoxesRefreshCount + 1
+
+	 //Clean up
+    if (numFound == 0 && state.dtvBoxesRefreshCount > 25) {
+        log.trace "Cleaning old memory"
+        state.dtvBoxes = [:]
+        state.dtvBoxesRefreshCount = 0
+        app.updateSetting("selectedBox", "")
+    }
+
+	 //Subscribe to ssdp request
     ssdpSubscribe()
 
-    //discovery request every 15 //25 seconds
-    if((bridgeRefreshCount % 5) == 0) {
+    //Discovery request every 15 //25 seconds
+    if((dtvBoxesRefreshCount % 5) == 0) {
         log.info("discoverBoxes")
         discoverBoxes()
     }else{
         log.info("skipping discoverBoxes")
     }
 
-
-    //setup.xml request every 5 seconds except on discoveries
-    if(((bridgeRefreshCount % 1) == 0) && ((bridgeRefreshCount % 5) != 0)) {
+    //Request every 5 seconds except on discoveries
+    if(((dtvBoxesRefreshCount % 1) == 0) && ((dtvBoxesRefreshCount % 5) != 0)) {
         verifyDevices()
     }
 
@@ -90,7 +95,7 @@ def discoveryBoxes(params=[:]) {
                 options:options
         }
         section("Channels"){
-            href(page: "channelSetupPage", title: "Element: 'app'")
+            href(page: "channelSetupPage", title: "Channel Setup'")
         }
     }
 }
@@ -154,7 +159,10 @@ def ssdpBoxHandler(evt) {
 }
 
 def boxesDiscovered() {
+    //def vmotions = switches.findAll { it?.verified == true }
+    //log.trace "MOTIONS HERE: ${vmotions}"
     def dtvBoxes = getDirectvBoxes().findAll { it?.value?.verified == true }
+    //log.debug("Boxes: $dtvBoxes")
     def map = [:]
 
     dtvBoxes.each {
@@ -178,21 +186,19 @@ private verifyDevices() {
 }
 
 private getFriendlyName(String deviceNetworkId, String URI) {
-    log.debug("IP: $deviceNetworkId -- URI: $URI")
-    log.debug("URI: $URI")
     if(URI == "/0/description.xml"){
         sendHubCommand(new physicalgraph.device.HubAction("""GET $URI HTTP/1.1\r\nHOST: $deviceNetworkId\r\n\r\n""", physicalgraph.device.Protocol.LAN, "${deviceNetworkId}", [callback: "setupHandler"]))
     }
 }
 
 void setupHandler(hubResponse) {
-    //log.debug("Fire returned: ${hubResponse.headers['Content-Type']}")
     String contentType = hubResponse?.headers['Content-Type']
     if (contentType != null && contentType == 'text/xml;charset="utf-8"') {
         def body = hubResponse.xml
         def directvDevices = []
         String deviceType = body?.device?.manufacturer?.text() ?: ""
         String deviceName = body?.device['directv-hmc']?.text() ?: ""
+        log.info("DeviceName: ${deviceType}-${deviceName}")
         directvDevices = getDirectvBoxes()
 
 
