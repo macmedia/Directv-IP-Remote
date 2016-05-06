@@ -33,7 +33,7 @@ preferences {
 
 def mainPage(){
     def dtvBoxes = boxesDiscovered()
-    discoveryBoxes()
+    discoveryBoxes()  
 }
 
 def channelSetupPage(){
