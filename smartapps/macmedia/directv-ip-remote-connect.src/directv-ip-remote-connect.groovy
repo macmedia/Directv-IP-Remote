@@ -20,9 +20,10 @@ definition(
     author: "Mike Elser",
     description: "Directv Connect app to create virtual devices that can be contolled by Alexa.",
     category: "Convenience",
-    iconUrl: "https://raw.githubusercontent.com/macmedia/Directv-IP-Tuner/master/Icons/DIRECTV.png",
-    iconX2Url: "https://raw.githubusercontent.com/macmedia/Directv-IP-Tuner/master/Icons/DIRECTV@2x.png",
-    iconX3Url: "https://raw.githubusercontent.com/macmedia/Directv-IP-Tuner/master/Icons/DIRECTV@2x.png")
+    iconUrl: "https://raw.githubusercontent.com/macmedia/Directv-IP-Remote/master/Icons/DIRECTV.png",
+    iconX2Url: "https://raw.githubusercontent.com/macmedia/Directv-IP-Remote/master/Icons/DIRECTV@2x.png",
+    iconX3Url: "https://raw.githubusercontent.com/macmedia/Directv-IP-Remote/master/Icons/DIRECTV@2x.png",
+    singleInstance: true)
 
 preferences {
     page(name:"mainPage", title:"Directv Box Setup", content:"mainPage", refreshTimeout:5)
@@ -38,7 +39,7 @@ def mainPage(){
 def channelSetupPage(){
   dynamicPage(name: "channelSetupPage", title: "Existing Channels") {
     section("Add a New Channel") {
-        app(name:"Directv IP Remote", appName:"Directv IP Remote Child",namespace:"macmedia", title: "New Channel", page: "channelPage", multiple: true)
+        app(name:"Directv IP Remote", appName:"Directv IP Remote Child", namespace:"macmedia", title: "New Channel", page: "channelPage", multiple: true)
     }
   }
 }
@@ -248,4 +249,14 @@ private def parseDiscoveryMessage(String description) {
         }
     }
     event
+}
+
+def uninstalled() {
+    removeChildDevices(getChildDevices())
+}
+
+private removeChildDevices(delete) {
+    delete.each {
+        deleteChildDevice(it.deviceNetworkId)
+    }
 }
