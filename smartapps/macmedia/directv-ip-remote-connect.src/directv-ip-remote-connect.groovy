@@ -258,6 +258,7 @@ private def parseDiscoveryMessage(String description) {
 }
 
 def uninstalled() {
+	unsubscribe()
     removeChildDevices(getChildDevices())
 }
 
