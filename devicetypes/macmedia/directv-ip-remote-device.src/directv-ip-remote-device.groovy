@@ -1,6 +1,7 @@
 /**
 *  Directv IP Remote - Device Type
 *  Version 1.0.0 - 05/04/2015
+*  Version 1.0.1 - 05/16/2015 - Bug Fix: not using updated ip address
 *
 *  Using the Directv IP Tuner Smart App will create a new virtual switch that can be used
 *  by Amazon Echo to say voice cammands to turn the channel.
@@ -111,7 +112,7 @@ def getInfoHtml(){
 
 private hubGet(){
 
-    def address = convertHexToIP(parent.state.dtvip)+":8080"
+    def address = convertHexToIP(parent.getSelectedBoxIP())+":8080"
     def channel = parent?.channel
     def url = "/tv/tune?major=$channel"
     def hubAction = new physicalgraph.device.HubAction(
