@@ -142,6 +142,7 @@ def ssdpBoxHandler(evt) {
         def d = switches."${parsedEvent.ssdpUSN.toString()}"
         boolean deviceChangedValues = false
         log.debug "$d.ip <==> $parsedEvent.ip"
+        
         if(d.ip != parsedEvent.ip || d.port != parsedEvent.port) {
             d.ip = parsedEvent.ip
             d.port = parsedEvent.port
@@ -158,9 +159,19 @@ def ssdpBoxHandler(evt) {
     }
 }
 
+private String getSelectedBoxIP(){
+	def ip = ""
+    def selectedBox = getDirectvBoxes().findAll { it?.value?.mac == settings.selectedBox }
+    selectedBox.each{
+    	ip = it.value.ip
+    }
+    
+    ip
+    
+}
+
 def boxesDiscovered() {
-    //def vmotions = switches.findAll { it?.verified == true }
-    //log.trace "MOTIONS HERE: ${vmotions}"
+
     def dtvBoxes = getDirectvBoxes().findAll { it?.value?.verified == true }
     //log.debug("Boxes: $dtvBoxes")
     def map = [:]
@@ -258,12 +269,12 @@ private def parseDiscoveryMessage(String description) {
 }
 
 def uninstalled() {
-	unsubscribe()
     removeChildDevices(getChildDevices())
 }
 
 private removeChildDevices(delete) {
     delete.each {
+    	log.debug("Child -> $it")
         deleteChildDevice(it.deviceNetworkId)
     }
 }

@@ -67,14 +67,18 @@ def initialize() {
     def ip = boxes.collect{it?.value?.ip}[0]
     def hub = boxes.collect{it?.value?.hub}[0]
 
-	  //Save state variables
- 	  state.dtvip  = ip
+	//Save state variables
+ 	state.dtvip  = ip
     state.dtmac  = macNumber
     state.dtvhub = hub
 
 	  //Add virtual switch to things
     def childDevice = addChildDevice("macmedia", "Directv IP Remote Device", DNI, hub, [name: "TV "+ app.label, label: "TV "+app.label, devicechannel:channel, completedSetup: true])
 
+}
+
+private String getSelectedBoxIP(){
+	return parent.getSelectedBoxIP()
 }
 
 private String convertIPtoHex(ipAddress) {
@@ -93,3 +97,7 @@ private removeChildDevices(delete) {
         deleteChildDevice(it.deviceNetworkId)
     }
 }
+def uninstalled() {
+    removeChildDevices(getChildDevices())
+}
+
