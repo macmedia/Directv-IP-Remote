@@ -1,8 +1,9 @@
 /**
  *  Directv IP Remote Child
+ *  Version 1.0.1 - 04/22/2017
  *  Version 1.0.0 - 05/04/2016
  *
- *  Copyright 2016 Mike Elser
+ *  Copyright 2017 Mike Elser
  *
  *  Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
  *  in compliance with the License. You may obtain a copy of the License at:
@@ -73,7 +74,7 @@ def initialize() {
     state.dtvhub = hub
 
 	  //Add virtual switch to things
-    def childDevice = addChildDevice("macmedia", "Directv IP Remote Device", DNI, hub, [name: "TV "+ app.label, label: "TV "+app.label, devicechannel:channel, completedSetup: true])
+    def childDevice = addChildDevice("macmedia", "Directv IP Remote Device", DNI, hub, [name: "Channel "+ app.label, label: "Channel "+app.label, devicechannel:channel, completedSetup: true])
 
 }
 
@@ -100,4 +101,3 @@ private removeChildDevices(delete) {
 def uninstalled() {
     removeChildDevices(getChildDevices())
 }
-
