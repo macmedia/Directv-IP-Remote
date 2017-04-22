@@ -1,8 +1,9 @@
 /**
 *  Directv IP Remote (Connect)
+*  Version 1.0.1 - 04/22/2017
 *  Version 1.0.0 - 05/05/2016
 *
-*  Copyright 2016 Mike Elser
+*  Copyright 2017 Mike Elser
 *
 *  Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
 *  in compliance with the License. You may obtain a copy of the License at:
@@ -18,7 +19,7 @@ definition(
     name: "Directv IP Remote (Connect)",
     namespace: "macmedia",
     author: "Mike Elser",
-    description: "Create virtual devices that can change channel's and can be contolled by Alexa.",
+    description: "Create virtual devices that can change channel's and can be controlled by Alexa.",
     category: "Convenience",
     iconUrl: "https://raw.githubusercontent.com/macmedia/Directv-IP-Remote/master/Icons/DIRECTV.png",
     iconX2Url: "https://raw.githubusercontent.com/macmedia/Directv-IP-Remote/master/Icons/DIRECTV%402x.png",
@@ -142,7 +143,7 @@ def ssdpBoxHandler(evt) {
         def d = switches."${parsedEvent.ssdpUSN.toString()}"
         boolean deviceChangedValues = false
         log.debug "$d.ip <==> $parsedEvent.ip"
-        
+
         if(d.ip != parsedEvent.ip || d.port != parsedEvent.port) {
             d.ip = parsedEvent.ip
             d.port = parsedEvent.port
@@ -165,9 +166,9 @@ private String getSelectedBoxIP(){
     selectedBox.each{
     	ip = it.value.ip
     }
-    
+
     ip
-    
+
 }
 
 def boxesDiscovered() {
