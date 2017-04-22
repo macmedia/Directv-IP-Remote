@@ -26,8 +26,8 @@ definition(
     iconX3Url: "https://raw.githubusercontent.com/macmedia/Directv-IP-Remote/master/Icons/DIRECTV%402x.png",
     singleInstance: true)
 
-def appVersion() { "1.0.0" }
-def appVerDate() { "5-6-2016" }
+def appVersion() { "1.0.1" }
+def appVerDate() { "5-6-2017" }
 
 preferences {
     page(name:"mainPage", title:"Directv Box Setup", content:"mainPage", refreshTimeout:5)
