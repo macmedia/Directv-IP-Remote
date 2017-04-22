@@ -1,6 +1,7 @@
 /**
 *  Directv IP Remote (Connect)
 *  Version 1.0.1 - 04/22/2017
+*  Version 1.0.0 - 05/05/2016
 *
 *  Copyright 2017 Mike Elser
 *

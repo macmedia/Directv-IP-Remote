@@ -1,6 +1,7 @@
 /**
  *  Directv IP Remote Child
  *  Version 1.0.1 - 04/22/2017
+ *  Version 1.0.0 - 05/04/2016
  *
  *  Copyright 2017 Mike Elser
  *
